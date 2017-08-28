@@ -1,0 +1,9 @@
+node_modules
+*.sublime-project
+*.sublime-workspace
+npm-debug.log
+.vscode
+static
+lib/
+flags/
+shrinkwrap.yaml
