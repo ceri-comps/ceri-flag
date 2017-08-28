@@ -62,6 +62,6 @@
     "version": "npm run build && git add .",
     "postversion": "git push && git push --tags && npm publish",
     "ghpages": "ceri-dev-server --static static/ && gh-pages -d static",
-    "install": "node ./flag-normalizer.js"
+    "install": "node ./lib/flag-normalizer.js"
   }
 }
