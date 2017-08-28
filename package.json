@@ -52,7 +52,7 @@
   "scripts": {
     "build:coffee": "coffee-cli --next --bare --no-header --compile --output lib/ src/*.coffee",
     "build:coffeeclient": "coffee-cli --bare --no-header --compile --output lib/ src/flag.coffee",
-    "build:bundle": "ceri-compiler lib/flag.js",
+    "build:bundle": "ceri-compiler --out lib/ lib/flag.js",
     "build:icons": "coffee ./src/flag-normalizer.coffee",
     "build": "run-npm build:*",
     "dev": "ceri-dev-server",
