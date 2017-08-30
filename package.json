@@ -1,7 +1,7 @@
 {
   "name": "ceri-flag",
   "description": "webpack based - load only what you need - svg inline flags",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "homepage": "https://github.com/ceri-comps",
   "author": {
     "name": "Paul Pflugradt",
