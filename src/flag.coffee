@@ -5,7 +5,6 @@ ceri = require "ceri/lib/wrapper"
 module.exports = ceri
 
   mixins: [
-    require "ceri/lib/style"
     require "ceri/lib/props"
     require "ceri/lib/computed"
   ]
@@ -17,9 +16,6 @@ module.exports = ceri
       type: Number
       default: 1
     label: String
-
-  initStyle:
-    display: "inline-block"
 
   data: -> aspect: 1
 
@@ -39,13 +35,15 @@ module.exports = ceri
     name: (name) -> 
       if (svg = flags[name])?
         @style.display = "none"
-        @innerHTML = flags[name]
-        s = @svg = @firstChild
-        @aspect = s.getAttribute("width")/s.getAttribute("height")
-        @updateRole()
-        @updateWidth()
-        @updateHeight()
-        @style.display = "inline-block"
+        next = requestAnimationFrame or @$nextTick
+        next =>
+          @innerHTML = flags[name]
+          s = @svg = @firstChild
+          @aspect = s.getAttribute("width")/s.getAttribute("height")
+          @updateRole()
+          @updateWidth()
+          @updateHeight()
+          next => @style.display = "inline-block"
       else if process.env.NODE_ENV != 'production'
         console.error "ceri-flag isn't setup properly - failed to get #{name}"
     role: "updateRole"

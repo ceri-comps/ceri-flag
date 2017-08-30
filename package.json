@@ -21,7 +21,7 @@
     "lib/"
   ],
   "dependencies": {
-    "ceri": "^1.0.24",
+    "ceri": "^1.0.25",
     "flag-icon-css": "^2.8.0",
     "fs-extra": "^4.0.1",
     "handle-that": "^0.1.0",
@@ -31,8 +31,8 @@
     "virtual-module-webpack-plugin": "^0.3.0"
   },
   "devDependencies": {
-    "ceri-compiler": "^1.1.2",
-    "ceri-dev-server": "^1.0.9",
+    "ceri-compiler": "^1.1.3",
+    "ceri-dev-server": "^1.0.11",
     "ceri-loader": "^1.1.0",
     "coffee-cli": "^0.2.1",
     "coffee-loader": "^0.7.3",
