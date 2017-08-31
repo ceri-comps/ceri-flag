@@ -2,12 +2,24 @@ fs = require "fs-extra"
 SVGO = require "svgo"
 svgo = new SVGO(multipass: true)
 path = require "path"
+minify = require('html-minifier').minify
+cheerio = require "cheerio"
 flagPath = require "./flag-path"
 
 processFile = (file, name) => 
   fs.readFile file, encoding:"utf8"
   .then (content) => new Promise (resolve) =>
-    svgo.optimize content, (optimized) => resolve(name: name, svg: optimized.data)
+    svgo.optimize content, (optimized) => 
+      
+      $ = cheerio.load(optimized.data)
+      svg = $("svg")
+      minified = minify svg.html(),
+        caseSensitive: true # for svg
+        keepClosingSlash: true # for svg
+        quoteCharacter: "'" # for optimized json
+        removeAttributeQuotes: true # smaller
+        sortAttributes:true # for better compression
+      resolve(n: name, vb: svg.attr("viewBox"), r: svg.attr("width")/svg.attr("height"), c: minified)
     #resolve(name: name, svg: content)
 module.exports = (sets) => Promise.all sets.map (set) =>
   re = new RegExp(set.re,"i")
@@ -27,7 +39,9 @@ module.exports = (sets) => Promise.all sets.map (set) =>
     .then (flags) =>
       obj = {}
       for flag in flags
-        obj[flag.name] = flag.svg if flag?.name?
+        if flag?.n?
+          obj[flag.n] = flag
+          delete flag.n
       console.log "#{set.short} (#{set.name}): #{flags.length} flags"
       return obj
     .then JSON.stringify
